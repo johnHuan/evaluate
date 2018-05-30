@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>评教结果</title>
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/bootstrap/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/css/bootstrap/bootstrap-overrides.css" />
+    <link type="text/css" rel="stylesheet" href="__PUBLIC__/css/bootstrap/bootstrap-responsive.css" />
+    <link href="__PUBLIC__/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<nav>当前位置：查看评教数据 >>评教结果</nav>
+<div class="container">
+    <div class="text-danger pull-right"><a class="btn btn-info" href="__CONTROLLER__/dLoad_stu_res">下载数据</a></div>
+    <form class="form-inline" role="search" method="post" action="__SELF__">
+        <div class="form-group" style="width:100%;display: block;">
+            <input type="text" style="width: 80%" placeholder="您可以按照 课程名称 / 课程编号 / 任课教师 模糊检索" id="keywords" name="keywords" class="form-control">
+            <button type="submit" style="width: 8%" class="btn btn-success">搜一下</button>
+        </div>
+    </form>
+    <div class="panel-body table-responsive">
+        <table class="table small table-condensed table-bordered table-striped table-hover">
+            <tr class="text-info bg-success">
+                <th class="text-center">序 号</th>
+                <th class="text-center">课程编号</th>
+                <th class="text-center">课程名称</th>
+                <th class="text-center">任课教师</th>
+                <th class="text-center text-info bg-info">总分</th>
+                <th class="text-center text-info bg-warning">应该参评人数</th>
+                <th class="text-center text-info bg-warning">实际参评人数</th>
+                <th class="text-center text-info bg-danger">平均分</th>
+            </tr>
+            <foreach name="list" item="vo" key="kk">
+                <tr>
+                    <td>{$kk + 1} </td>
+                    <td  class="text-left">{$vo['ci']}</td>
+                    <td  class="text-center">{$vo['cn']}</td>
+                    <td  class="text-left">{$vo['ct'] }</td>
+                    <td  class="text-left text-info bg-info">{$vo['cs'] }</td>
+                    <td  class="text-left text-info bg-warning">{$vo['esn'] }</td>
+                    <td  class="text-left text-info bg-warning">{$vo['esa'] }</td>
+                    <td  class="text-left text-info bg-danger">{$vo['ea'] }</td>
+                </tr>
+            </foreach>
+        </table>
+
+    </div>
+    <div class="page small">
+        <ul class="pagination small">
+            {$page}
+        </ul>
+    </div>
+</div>
+
+
+
+</body>
+</html>

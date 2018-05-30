@@ -1,0 +1,68 @@
+<link rel="stylesheet"  media="screen" type="text/css" href="__PUBLIC__/bootstrap/css/bootstrap.min.css">
+<script src="__PUBLIC__/js/jquery.min.js"></script>
+<script src="__PUBLIC__/js/bootstrap.min.js"></script>
+<!-- nav start
+<nav class="navbar navbar-default" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#example-navbar-collapse">
+                <span class="sr-only">切换导航</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">菜鸟教程</a>
+        </div>
+        <div class="collapse navbar-collapse" id="example-navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">iOS</a></li>
+                <li><a href="#">SVN</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        Java <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">jmeter</a></li>
+                        <li><a href="#">EJB</a></li>
+                        <li><a href="#">Jasper Report</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">分离的链接</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">另一个分离的链接</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+-->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <span class="text-justify visible-xs  navbar-brand">资土学院 教学管理系统</span>
+            <button  class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+            <ul class="nav navbar-nav navbar-right menu-drop">
+                <li><a href="__CONTROLLER__/Index"><span class="glyphicon glyphicon-user"> {$Think.session.stu_name} 个人信息</span> </a></li>
+                <li><a href="__CONTROLLER__/evaluate"><span class="glyphicon glyphicon-edit"> </span>  教学评估</a></li>
+                <li disabled="disabled" class="disabled" onclick="javascript:return false;"><a href="__CONTROLLER__/cet46"  ><span class="glyphicon glyphicon-compressed" > </span> 四六级报名</a></li>
+                <li disabled="disabled" class="disabled" onclick="javascript:return false;"><a href="__CONTROLLER__/reExam"><span class="glyphicon glyphicon-bell"> </span> 补考报名</a></li>
+                <li><a href="__CONTROLLER__/updatePwd"><span class="glyphicon glyphicon-lock"> </span> 修改密码</a></li>
+                <li><a href="__CONTROLLER__/logout" onclick="if (confirm('确定要退出吗？')) return true; else return false;"><span class="glyphicon glyphicon-off"> </span> 退出系统</a></li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
+<br><br>
+
+<!-- nav end -->
+<!--<div class="container" style="margin: 0 auto;">-->
+<!--<iframe scrolling="no" style="width:inherit;height:15px;" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=11&icon=4"></iframe>-->
+<!--</div>-->

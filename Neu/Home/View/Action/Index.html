@@ -1,0 +1,93 @@
+<extend name="Public/base" />
+<block name="title">个人中心</block>
+<block name="main">
+	<link rel="stylesheet"  media="screen" type="text/css" href="__PUBLIC__/css/bootstrap.min.css">
+	<link rel="stylesheet"  media="screen" type="text/css" href="__PUBLIC__/css/index.css">
+	<!--body start-->
+<div class="container">
+	<div class="header">
+		<h1 class="text-center visible-lg">东北大学 <span class="text-nowrap">资源与土木工程学院</span> <span class="text-nowrap">教学管理系统 </span><span class="text-nowrap">个人信息</span></h1>
+		<h2 class="text-center visible-md">东北大学 <span class="text-nowrap">资源与土木工程学院</span> <span class="text-nowrap">教学管理系统 </span><span class="text-nowrap">个人信息</span></h2>
+		<h3 class="text-center visible-sm">东北大学 <span class="text-nowrap">资源与土木工程学院</span> <span class="text-nowrap">教学管理系统 </span><span class="text-nowrap">个人信息</span></h3>
+		<h4 class="text-center visible-xs">东北大学 <span class="text-nowrap">资源与土木工程学院</span> <span class="text-nowrap">教学管理系统 </span><span class="text-nowrap">个人信息</span></h4>
+	</div>
+	<div class="page">
+		<div class="content">
+			<div class="wrap">
+				<div class="row">
+					<div class="col-lg-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+								个人信息
+								<!--<a class="pull-right" href="#">更多>></a>-->
+							</div>
+							<div class="panel-body">
+								<ul class="list-group">
+									<li class="list-group-item">
+										<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+										<label>学号: </label> {$data[stu_num]}
+									</li>
+									<li class="list-group-item">
+										<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+										<label>姓名: </label> {$data[stu_name]}
+									</li>
+									<li class="list-group-item">
+										<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+										<label>班级</label>
+										<span class="font-green">{$data[stu_class]}</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-8">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+								我的专业课信息
+							</div>
+							<div class="panel-body">
+								<div class="table-responsive">
+									<!--<table class="table  table-condensed table-striped table-hover">
+										<tr>
+											<th>课程编号</th>
+											<th>课程名称</th>
+										</tr>
+										<foreach name="courses" item="vo" >
+											<tr>
+												<td>{$vo.course_id}</td>
+												<td>{$vo.course_name}</td>
+
+											</tr>
+										</foreach>
+									</table>-->
+									<table class="table  table-condensed table-striped table-hover">
+										<tr>
+											<th>课程编号</th>
+											<th>课程名称</th>
+											<th>任课教师</th>
+											<th>学分</th>
+											<th>学时</th>
+										</tr>
+										<foreach name="courses	" item="vo" >
+												<tr>
+													<td>{$vo.course_id|default="123"}</td>
+													<td>{$vo.course_name}</td>
+													<td>{$vo.course_teacher}</td>
+													<td>{$vo.course_score}</td>
+													<td>{$vo.course_period}</td>
+												</tr>
+										</foreach>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</block>
+

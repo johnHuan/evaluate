@@ -1,0 +1,134 @@
+<extend name="Public/base" />
+<block name="title">教学评估</block>
+<block name="main">
+	<link rel="stylesheet"  media="screen" type="text/css" href="__PUBLIC__/css/index.css">
+	<!--body start-->
+	<div class="container">
+		<div class="header">
+			<h1 class="text-center visible-lg">东北大学 <span class="text-nowrap">资源与土木工程学院</span> <span class="text-nowrap">教学管理系统 </span><span class="text-nowrap">教学评估</span></h1>
+			<h2 class="text-center visible-md">东北大学 <span class="text-nowrap">资源与土木工程学院</span> <span class="text-nowrap">教学管理系统 </span><span class="text-nowrap">教学评估</span></h2>
+			<h3 class="text-center visible-sm">东北大学 <span class="text-nowrap">资源与土木工程学院</span> <span class="text-nowrap">教学管理系统 </span><span class="text-nowrap">教学评估</span></h3>
+			<h4 class="text-center visible-xs">东北大学 <span class="text-nowrap">资源与土木工程学院</span> <span class="text-nowrap">教学管理系统 </span><span class="text-nowrap">教学评估</span></h4>
+		</div>
+		<div class="page content">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+							教学评估（评教）
+						</div>
+						<div class="panel-body table-responsive">
+							<table class="table  table-condensed table-striped table-hover">
+								<thead>
+									<span class="visible-xs text-info">提示：向右滑进行评教</span>
+								</thead>
+								<tr>
+									<th>课程编号</th>
+									<th>课程名称</th>
+									<th>任课教师</th>
+									<th>上课班级</th>
+									<th>学分</th>
+									<th>学时</th>
+									<th>评教状态</th>
+								</tr>
+								<foreach name="info" item="vo" key="k">
+									<tr>
+										<td> {$k} {$vo.course_id}</td>
+										<td> {$vo.course_name}</td>
+										<td> {$vo.course_teacher}</td>
+										<td> {$vo.course_obj}</td>
+										<td> {$vo.course_score}</td>
+										<td> {$vo.course_period}</td>
+										<input type="hidden" name="eva_res[]" value="{$vo.stu_evaluate_status}">
+										<if condition="$vo.stu_evaluate_status eq 1">
+											<td>
+												<span class="hidden-xs">已评教</span>
+												<span class="glyphicon glyphicon-ok disabled"></span>
+											</td>
+										<else />
+											<td>
+												<a href="__CONTROLLER__/evaluateDo?sid={$vo.course_id}">
+												<span class="hidden-xs">待评教</span>
+												<!--<a href="__CONTROLLER__/evaluateDo?sid={$vo.sid}">-->
+													<span class="glyphicon glyphicon-pencil">
+													</span>
+												</a>
+											</td>
+										</if>
+									</tr>
+								</foreach>
+							</table>
+								<if condition="$data.eva_status eq 0">
+									<form action="__SELF__" method="post">
+										<input id="submit" class="btn btn-block btn-primary  form-control" name="submit" value="点击提交后完成评教" type="submit">
+									</form>
+									<else />
+									<div class="">
+										<span class="text-center label-primary text-danger form-control disabled" >您已经完成评教</span>
+									</div>
+								</if>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<!--body end-->
+	<script>
+		$(function () {
+			$("input:submit").on("click", function (event){
+				event.preventDefault();
+				var len = $("input:hidden").length;
+				var flag = 0;
+				for (var i=0; i<len; i++){
+					var eachValue = $("input:hidden")[i].value;
+					if (eachValue == 0){
+						flag = 0;
+						alert("请完成所有课程的评教后再点击这里完成评教！");
+						break;
+					} else {
+						flag = 1;
+					}
+				}
+
+				if (flag == 1){
+					//完成评教后的操作
+					$.ajax({
+						type: 'POST',
+						data: {
+							flag: flag,
+						},
+						url: '__SELF__',
+						beforeSend: function(){
+							$('#submit').addClass('disabled').val('评教结果提交中，请稍后。。。');
+							$('#submit').css('cursor', 'not-allowed');
+						},
+						success: function (res) {
+							if(res == 1){
+								//完成这门课程的评教
+	                          alert("恭喜您！提交成功！完成评教！！");
+								location.href = "__CONTROLLER__/Index";
+							} else if (res == 2){
+								//提交失败
+								alert("提交失败！请重试！！");
+							} else {
+							    alert("提交失败，失败原因：“返回值异常！！！”请按下方的联系方式联系维护人员！");
+							}
+						},
+						complete: function(){
+							$('#submit').removeClass('disabled').val('点击提交后完成评教');
+							$('#submit').css('cursor', 'pointer');
+						}
+
+					});
+
+				}
+
+			});
+		});
+	</script>
+</block>
+
+
+

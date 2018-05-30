@@ -1,0 +1,145 @@
+<extend name="Public/base" />
+<block name="title">教学评估</block>
+<block name="main">
+    <link rel="stylesheet"  media="screen" type="text/css" href="__PUBLIC__/css/index.css">
+    <style>
+        .active{
+            background: #9B410E !important;
+
+        }
+    </style>
+    <!--body start-->
+    <div class="container">
+        <div class="header">
+            <h1 class="text-center visible-lg">东北大学 <span class="text-nowrap">资源与土木工程学院</span> <span class="text-nowrap">教学管理系统 </span><span class="text-nowrap">教学评估（评教）</span></h1>
+            <h2 class="text-center visible-md">东北大学 <span class="text-nowrap">资源与土木工程学院</span> <span class="text-nowrap">教学管理系统 </span><span class="text-nowrap">教学评估（评教）</span></h2>
+            <h3 class="text-center visible-sm">东北大学 <span class="text-nowrap">资源与土木工程学院</span> <span class="text-nowrap">教学管理系统 </span><span class="text-nowrap">教学评估（评教）</span></h3>
+            <h4 class="text-center visible-xs">东北大学 <span class="text-nowrap">资源与土木工程学院</span> <span class="text-nowrap">教学管理系统 </span><span class="text-nowrap">教学评估（评教）</span></h4>
+        </div>
+        <div class="page content">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+                            教学评估（评教）
+                        </div>
+                        <div class="panel-body table-responsive">
+                            <table class="table">
+                                <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>
+                                <thead> 课程以及教师</thead>
+                                <tr>
+                                    <td>课程名称: {$info.course_name}</td>
+                                    <td>任课教师: {$info.course_teacher}</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <form action="__SELF__" method="post">
+                            <div class="panel-body table-responsive">
+                                <table class="table  table-condensed table-striped table-hover">
+                                    <span class="glyphicon glyphicon glyphicon-tasks" aria-hidden="true"></span>
+                                    <thead> 课堂质量评价</thead>
+                                    <tr>
+                                        <th>评价内容</th>
+                                        <th>评价等级 <span class="text-danger">(*必选)</span></th>
+                                    </tr>
+                                    <foreach name="question" item="vo" key="k">
+                                        <tr>
+                                            <td>{$vo.content}</td>
+                                            <td>
+                                                <div data-toggle="buttons">
+                                                    <label class="btn btn-primary"><input type="radio" name="eva_level{$vo.qid}" id="eva_level{$vo.qid}1" value="1"> A</label>
+                                                    <label class="btn btn-primary"><input type="radio" name="eva_level{$vo.qid}" id="eva_level{$vo.qid}2" value="2"> B</label>
+                                                    <label class="btn btn-primary"><input type="radio" name="eva_level{$vo.qid}" id="eva_level{$vo.qid}3" value="3"> C</label>
+                                                    <label class="btn btn-primary"><input type="radio" name="eva_level{$vo.qid}" id="eva_level{$vo.qid}4" value="4"> D</label>
+                                                    <label class="btn btn-primary"><input type="radio" name="eva_level{$vo.qid}" id="eva_level{$vo.qid}5" value="5"> E</label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </foreach>
+                                </table>
+                            </div>
+                            <div class="panel-body">
+                                <table class="table">
+                                    <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                                    <thead> 我要吐槽<span class="text-danger">(*选填)</span></thead>
+                                    <tr>
+                                        <td>
+                                            <div class="form-group">
+                                                <textarea class="form-control" name="stu_comment" id="" placeholder="随便写两句吐槽一下这门课或者这位老师吧。。。" cols="40"></textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="col-sm-3">
+                                                <input id="submit" class="btn btn-primary form-control" name="submit" value="提交评教结果" type="submit">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--body end-->
+    <script>
+        $(function () {
+            $('input:submit').on('click', function(event){
+//                event.preventDefault();
+                var data =  [];
+                var commentEach = [];
+                for (var i=1 ;i<13; i++){
+                    var val = $('input:radio[name="eva_level'+i+'"]:checked').val();
+                    var valEach = $('input:text[name="stu_comment'+i+'"]').val();
+
+                    data.push(val);
+                    commentEach.push(valEach);
+                    if (val == null){
+                        alert("第"+i+"道题没选，请选择后提交");
+                        $('input:radio[name="eva_level'+i+'"]').focus();
+                          return false;
+                    }
+                }
+                    return true;
+//                var valtotal = $('textarea[name="stu_comment"]').val();
+//                alert(valtotal);
+//                alert(commentEach);
+                //发送数据
+              /*  $.ajax({
+                    type: 'POST',
+                    data: {
+                        data: data,
+                        commentEach: commentEach,
+                        valtotal: valtotal,
+                    },
+                    url: '__SELF__',
+                    beforeSend: function(){
+                        $('#submit').addClass('disabled').val('评教结果提交中，请稍后。。。');
+                        $('#submit').css('cursor', 'not-allowed');
+                    },
+                    success: function (res) {
+                      if(res == 1){
+                            //完成这门课程的评教
+//                          alert("提交成功");
+                          location.href = "__CONTROLLER__/evaluate";
+                        } else {
+                          //提交失败
+                          alert("提交失败！请重试！！");
+                      }
+                    },
+                    complete: function(){
+                        $('#submit').removeClass('disabled').val('提交评教结果');
+                        $('#submit').css('cursor', 'pointer');
+                    }
+                });*/
+
+            });
+        });
+    </script>
+
+</block>
+
